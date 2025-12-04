@@ -5,9 +5,6 @@ import Header from "../component/Header";
 const Homepage = () => {
   return (
     <>
-      <Header />
-      <Navbar />
-      <Footer />
     </>
   );
 };

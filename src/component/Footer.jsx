@@ -1,10 +1,7 @@
 const Footer = () => {
   return (
-    <footer
-      className="bg-[url('/Batman.jpg')] bg-cover bg-center bg-no-repeat text-white py-14"
-    >
+    <footer className="bg-black text-white py-14">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-30 px-6">
-
         {/* GET IN TOUCH */}
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2">
@@ -90,11 +87,15 @@ const Footer = () => {
             "REFUND POLICY",
             "RETURN AND EXCHANGE POLICY",
           ].map((item) => (
-            <div key={item} className="text-sm hover:text-yellow-400">
+            <div key={item} className="text-sm hover:text-amber-500">
               {item}
             </div>
           ))}
         </div>
+      </div>
+      <div className="text-center mt-20 text-[12px]">
+        {" "}
+        © 2025, temoc Marketing Private Limited. All Rights Reserved.{" "}
       </div>
     </footer>
   );
