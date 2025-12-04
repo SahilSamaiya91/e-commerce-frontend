@@ -1,8 +1,22 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { registerUser } from "../api/auth-api";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const user = { firstName, lastName, email, password };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const result = await registerUser(user);
+    console.log(result);
+  };
 
   return (
     <div className="flex justify-center py-10">
@@ -47,16 +61,30 @@ const Register = () => {
                   <input
                     type="email"
                     placeholder="EMAIL"
-                    className="w-full p-3 border  rounded bg-white text-gray-700 border-gray-300   "
+                    className="w-full p-3 border  rounded bg-white text-gray-700 border-gray-300"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
                 </div>
 
                 {/* PASSWORD */}
-                <input
-                  type="password"
-                  placeholder="PASSWORD"
-                  className="w-full p-3 border border-gray-300 rounded bg-white text-gray-700"
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="PASSWORD"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded pr-10 bg-white"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  >
+                    {showPassword ? "🙈" : "👁️"} {/* simple emoji icon */}
+                  </button>
+                </div>
 
                 {/* FIRST + LAST NAME */}
                 <div className="grid grid-cols-2 gap-4">
@@ -64,12 +92,18 @@ const Register = () => {
                     type="text"
                     placeholder="FIRST NAME"
                     className="p-3 border border-gray-300 rounded bg-white text-gray-700 "
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
                   />
 
                   <input
                     type="text"
                     placeholder="LAST NAME"
                     className="p-3 border border-gray-300 rounded bg-white text-gray-700"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
                   />
                 </div>
 
@@ -78,6 +112,7 @@ const Register = () => {
                   <button
                     type="button"
                     className="bg-[#306e83] hover:bg-[#265a6b] text-white font-bold py-3 px-16 rounded-full uppercase tracking-wide transition"
+                    onClick={handleRegister}
                   >
                     Sign Up
                   </button>

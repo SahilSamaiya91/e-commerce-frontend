@@ -1,14 +1,21 @@
-import React from "react";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-// background-color: #f2f2f2;
-//     border-radius: 10px;
-//     padding: 23px 30px 30px;
+import { loginUser } from "../api/auth-api";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const user = { email, password };
+
+  const checkLogin = async (e) => {
+    e.preventDefault()
+    const result = await loginUser(user);
+    console.log(result);
+  };
+
   return (
     <>
       <div className="w-3/4 mx-auto grid grid-cols-1 md:grid-cols-2 gap-10  m-10 items-start">
@@ -22,7 +29,9 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="EMAIL"
-                  className="w-full p-3 border  rounded bg-white text-gray-700 border-gray-300   "
+                  className="w-full p-3 border  rounded bg-white text-gray-700 border-gray-300"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
@@ -31,10 +40,15 @@ const Login = () => {
                 type="password"
                 placeholder="PASSWORD"
                 className="w-full p-3 border border-gray-300 rounded bg-white text-gray-700"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </form>
             <p>Forgot Password</p>
-            <button className="w-1/2   bg-white border border-gray-300 p-1 rounded-full  text-gray-700">
+            <button
+              className="w-1/2   bg-white border border-gray-300 p-1 rounded-full  text-gray-700"
+              onClick={checkLogin}
+            >
               {" "}
               Sign in{" "}
             </button>
