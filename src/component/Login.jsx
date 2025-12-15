@@ -15,7 +15,6 @@ const Login = () => {
     e.preventDefault();
     setError("");
 
-    // 🔐 Client-side validation
     if (!email && !password) {
       setError("Email and password are required");
       return;
@@ -33,77 +32,97 @@ const Login = () => {
 
     try {
       const result = await loginUser({ email, password });
-
-      // save auth data in context
       login(result);
-
-      // redirect to homepage
       navigate("/");
     } catch (err) {
-      setError("Invalid user or password");
+      if(err.message.includes("Services Are Down")) {
+        setError("Please Try Again Later")
+      }else{
+        setError("Invalid user or password");
+      }
+      
     }
   };
 
   return (
-    <>
-      <div className="w-3/4 mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 m-10 items-start">
+    <div className="w-full px-4 py-12">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+        
         {/* LEFT: LOGIN */}
-        <div className="bg-[#f2f2f2] p-5 rounded-md justify-center items-center">
-          <div className="text-4xl text-center">Sign in with tomec</div>
+        <div className="bg-[#f2f2f2] px-6 py-8 rounded-md">
+          <div className="text-4xl text-center mb-6">
+            Sign in with tomec
+          </div>
 
-          <div className="flex flex-col gap-2">
-            <form className="flex flex-col gap-4" onSubmit={checkLogin}>
-              {/* EMAIL */}
-              <input
-                type="email"
-                placeholder="EMAIL"
-                className="w-full p-3 border rounded bg-white text-gray-700 border-gray-300"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+          <form className="flex flex-col gap-4" onSubmit={checkLogin}>
+            {/* EMAIL */}
+            <input
+              type="email"
+              placeholder="EMAIL"
+              className="w-full p-3 border rounded bg-white text-gray-700 border-gray-300"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-              {/* PASSWORD */}
-              <input
-                type="password"
-                placeholder="PASSWORD"
-                className="w-full p-3 border border-gray-300 rounded bg-white text-gray-700"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+            {/* PASSWORD */}
+            <input
+              type="password"
+              placeholder="PASSWORD"
+              className="w-full p-3 border border-gray-300 rounded bg-white text-gray-700"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-              <p>Forgot Password</p>
+            <p className="text-sm cursor-pointer">
+              Forgot Password
+            </p>
 
+            <div className="flex justify-center mt-2">
               <button
                 type="submit"
-                className="w-1/2 bg-white border border-gray-300 p-1 rounded-full text-gray-700"
+                className="w-1/2 bg-white border border-gray-300 py-2 rounded-full text-gray-700"
               >
                 Sign in
               </button>
+            </div>
 
-              {/* ERROR MESSAGE */}
-              {error && (
-                <p className="text-red-500 text-md text-center">{error}</p>
-              )}
-            </form>
-          </div>
+            {error && (
+              <p className="text-red-500 text-md text-center mt-2">
+                {error}
+              </p>
+            )}
+          </form>
         </div>
 
         {/* RIGHT: REGISTER CTA */}
-        <div className="bg-[#f2f2f2] p-5 rounded-md">
-          <div className="text-4xl text-center">Join Tomec tomec</div>
-          <div className="flex flex-col gap-2">
+        <div className="bg-[#f2f2f2] px-6 py-8 rounded-md flex flex-col justify-center">
+          <div className="text-4xl text-center mb-4">
+            Join Tomec tomec
+          </div>
+
+          <div className="flex flex-col gap-3">
             <p className="text-orange-400 text-center">
               Register and get 500rs off on first order
             </p>
+
             <p className="text-center">
               Transform your wardrobe bottoms with our shoes and Accessories
               and make Dhoom in the market
             </p>
-            <button onClick={() => navigate("/register")}>Sign up</button>
+
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={() => navigate("/register")}
+                className="bg-white border border-gray-300 px-10 py-2 rounded-full"
+              >
+                Sign up
+              </button>
+            </div>
           </div>
         </div>
+
       </div>
-    </>
+    </div>
   );
 };
 

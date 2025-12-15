@@ -2,6 +2,7 @@ import React from "react";
 import useFetch from "../hooks/useFetch";
 import { getProducts } from "../api/product-api";
 import Card from "../component/Card";
+import DroppingSoon from "../component/DroppingSoon";
 
 const Homepage = () => {
   const { data: products, loading, error } = useFetch(getProducts, []);
@@ -16,6 +17,7 @@ const Homepage = () => {
 
   return (
     <div>
+      <DroppingSoon/>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {tomecProducts.map((product) => (
           <Card

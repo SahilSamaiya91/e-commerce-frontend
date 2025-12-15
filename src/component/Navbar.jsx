@@ -5,7 +5,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const {isAuthenticated , user , logout} = useAuth();
   return (
-    <nav className="w-full bg-white border-b lg:h-[25vh]">
+    <nav className="w-full bg-white border-b lg:h-[20vh]">
       {/* -------- TOP ROW -------- */}
       <div className="flex flex-col lg:flex-row lg:items-center px-5 lg:px-10 lg:h-3/4 gap-4 lg:gap-15">
         {/* Row 1 (Brand + Actions) */}
