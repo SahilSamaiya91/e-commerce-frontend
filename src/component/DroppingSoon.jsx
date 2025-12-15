@@ -26,7 +26,6 @@ const DroppingSoon = () => {
           sm:h-[45vh]
           md:h-[55vh]
           lg:h-[60vh]
-          object-cover
         "
       />
     </div>

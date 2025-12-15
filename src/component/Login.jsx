@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState , useRef , useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/auth-api";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const emailRef = useRef(null);
   const { login } = useAuth();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -44,9 +44,13 @@ const Login = () => {
     }
   };
 
+   useEffect(() => {
+    emailRef.current?.focus();
+  }, []);
+
   return (
     <div className="w-full px-4 py-12">
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
         
         {/* LEFT: LOGIN */}
         <div className="bg-[#f2f2f2] px-6 py-8 rounded-md">
@@ -62,6 +66,7 @@ const Login = () => {
               className="w-full p-3 border rounded bg-white text-gray-700 border-gray-300"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              ref = {emailRef}
             />
 
             {/* PASSWORD */}
