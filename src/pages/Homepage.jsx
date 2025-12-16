@@ -5,7 +5,7 @@ import Card from "../component/Card";
 import DroppingSoon from "../component/DroppingSoon";
 
 const Homepage = () => {
-  const { data: products, loading, error } = useFetch(getProducts, []);
+  const { data: products, loading, error } = useFetch(getProducts);
 
   if (loading) return <div className="text-center p-10">Loading...</div>;
   if (error) return <div className="text-red-500">Error: {error.message}</div>;
@@ -25,7 +25,6 @@ const Homepage = () => {
   });
 
   const brandProducts = Array.from(brandMap.values());  // okay here we have extracted one one value of ecah brand product
-  console.log(brandProducts);
   
 
 
